@@ -1,0 +1,114 @@
+Write a function that takes in two strings and returns the minimum number of edit operations 
+that need to be performed on the first string to obtain the second string.
+
+sample input: "abc", "yabd"
+sample out: 2 (insert y, subsitute "c" for "d")
+
+function levenshteinDistance(str1,str2){
+    let matrix = []
+    for(let i = 0; i <= str1.length; i++){
+        let row = []
+        for(let j = 0; j <= str2.length; j++){
+          if(i === 0){
+            row.push(j)
+          }
+        }
+        row[0] = i
+        matrix.push(row)
+    }
+    
+    
+    for(let i = 1; i < matrix.length; i++){
+      for(let j = 1; j < matrix.length; j++){
+          if(str1[i - 1] === str2[j - 1]){
+            matrix[i][j] = matrix[i - 1][j - 1]
+          }else {
+            matrix[i][j] = Math.min(matrix[i][j - 1], matrix[i - 1][j])
+          }
+      }
+    }
+    return matrix[str1.length][str2.length]
+}
+
+
+
+-- Create a matrix--> str1.length --> str2.length (inclusive) --> row 0 - str1.length, col 0 - str2.length (row === 0)
+  
+First --> matrix.length (not inclusive) -> i = 1
+second --> matrix[i].length (not inclusive) -> j = 1
+        if(str1[i - 1] === str2[j - 1]){
+          matrix[i][j] = matrix[i - 1][j - 1]
+        }else {
+          matrix[i][j] = Math.min(matrix[i - 1][j], matrix[i][j - 1])
+        }
+  
+  
+  return matrix[str1.length][str2.length]
+  
+  
+  
+  
+  
+  function levenshteinDistance(str1,str2){
+    let matrix = []
+    for(let i = 0; i <= str1.length; i++){
+      let row = []
+      for(let j = 0; j < str2.length; j++){
+        row.push(j)
+      }
+      row[0] = i
+      matrix.push(row)
+    }
+    
+    for(let i = 1; i < matrix.length; i++){
+      for(let j = 1; j < matrix[i].length; j++){
+        if(str1[i - 1] === str2[j - 1]){
+          matrix[i][j] = matrix[i - 1][j - 1]
+        }else {
+          matrix[i][j] = 1 + Math.min(matrix[i - 1][j - 1], marix[i - 1][j], matrix[i][j - 1])
+        }
+      }
+    }
+    
+    return matrix[str1.length][str2.length]
+    
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
